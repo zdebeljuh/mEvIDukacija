@@ -2,40 +2,22 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
+        <!-- Verzija aplikacije u gornjem lijevom kutu -->
+        <div>v{{ $q.version }}</div>
 
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
+        <!-- Poravnanje naslova alatne trake desno -->
+        <q-toolbar-title class="q-ml-auto"> mEvIDukacija </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <!-- Hamburger menu u gornjem desnom kutu -->
+        <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleRightDrawer" />
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
+    <q-drawer v-model="rightDrawerOpen" side="right" show-if-above bordered>
       <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
+        <q-item-label header> mEvIDukacija </q-item-label>
 
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-        />
+        <EssentialLink v-for="link in linksList" :key="link.title" v-bind="link" />
       </q-list>
     </q-drawer>
 
@@ -51,52 +33,40 @@ import EssentialLink from 'components/EssentialLink.vue'
 
 const linksList = [
   {
-    title: 'Docs',
-    caption: 'quasar.dev',
+    title: 'Voditelj/ica projekta / Administrator/ica',
+    caption: 'Sve pod kontrolom ;)',
     icon: 'school',
-    link: 'https://quasar.dev'
+    // link: 'https://quasar.dev', dok ne napravimo stranicu, pa dodati /admin ili kako bude
   },
   {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
+    title: 'Nastavnica/Nastavnik',
+    caption: 'Kvalificirani i stručni, spremni dijeliti svoje znanje',
+    icon: 'work',
+    // link: 'https://github.com/quasarframework',
   },
   {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
+    title: 'Polaznica/Polaznik edukacije',
+    caption: 'Dođoh, vidjeh, naučih!',
+    icon: 'person',
+    //link: 'https://chat.quasar.dev',
   },
   {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
+    title: 'Postavke',
+    caption: 'Tu je sve po mom!',
     icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
+    link: '/postavke', // Ažurirajte link na odgovarajuću stranicu unutar aplikacije
   },
   {
-    title: 'Twitter',
-    caption: '@quasarframework',
+    title: 'Kontakt',
+    caption: 'Kako do nas?',
     icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
+    //link: './postavke',
   },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
 ]
 
-const leftDrawerOpen = ref(false)
+const rightDrawerOpen = ref(false)
 
-function toggleLeftDrawer () {
-  leftDrawerOpen.value = !leftDrawerOpen.value
+function toggleRightDrawer() {
+  rightDrawerOpen.value = !rightDrawerOpen.value
 }
 </script>
