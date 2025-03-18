@@ -53,14 +53,14 @@ const linksList = [
   {
     title: 'Postavke',
     caption: 'Tu je sve po mom!',
-    icon: 'record_voice_over',
+    icon: 'settings',
     link: '/postavke', // Ažurirajte link na odgovarajuću stranicu unutar aplikacije
   },
   {
     title: 'Kontakt',
     caption: 'Kako do nas?',
     icon: 'rss_feed',
-    //link: './postavke',
+    link: '/kontakt', // Ažurirajte link na odgovarajuću stranicu unutar aplikacije
   },
 ]
 

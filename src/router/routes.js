@@ -1,13 +1,14 @@
+import MainLayout from 'layouts/MainLayout.vue'
+import PostavkePage from 'pages/PostavkePage.vue'
+
 const routes = [
   {
     path: '/',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/IndexPage.vue') }],
-  },
-
-  {
-    path: '/postavke',
-    component: () => import('src/pages/PostavkePage.vue'),
+    component: MainLayout,
+    children: [
+      { path: '', component: () => import('pages/IndexPage.vue') },
+      { path: 'postavke', component: PostavkePage },
+    ],
   },
   {
     path: '/:catchAll(.*)*',

@@ -3,19 +3,19 @@
     <q-list>
       <q-item>
         <q-item-section>
-          <q-item-label>Dark Mode/Light Mode</q-item-label>
+          <q-item-label>Dark Mode</q-item-label>
         </q-item-section>
-        <q-item-section side>
-          <q-toggle v-model="darkMode" />
+        <q-item-section avatar>
+          <q-toggle v-model="darkMode" @update:model-value="toggleDarkMode" />
         </q-item-section>
       </q-item>
 
-      <q-item>
+      <q-item clickable @click="changeLanguage">
         <q-item-section>
           <q-item-label>Promjena jezika</q-item-label>
         </q-item-section>
-        <q-item-section side>
-          <q-toggle v-model="language" label="HR-EN" />
+        <q-item-section avatar>
+          <q-icon name="language" />
         </q-item-section>
       </q-item>
     </q-list>
@@ -24,9 +24,19 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useQuasar } from 'quasar'
 
-const darkMode = ref(false)
-const language = ref(false)
+const $q = useQuasar()
+const darkMode = ref($q.dark.isActive)
+
+function toggleDarkMode() {
+  $q.dark.set(darkMode.value)
+}
+
+function changeLanguage() {
+  // Logika za promjenu jezika
+  alert('Promjena jezika nije implementirana')
+}
 </script>
 
 <style>
