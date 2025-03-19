@@ -44,6 +44,13 @@ const emit = defineEmits(['shareApp'])
 function executeAction() {
   if (props.action === 'shareApp') {
     emit('shareApp')
+  } else if (props.action === 'openInAppBrowser') {
+    const url = props.link
+    if (window.cordova && window.cordova.InAppBrowser) {
+      window.cordova.InAppBrowser.open(url, '_system')
+    } else {
+      window.open(url, '_blank')
+    }
   }
 }
 </script>

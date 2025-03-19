@@ -94,30 +94,12 @@ function toggleRightDrawer() {
 }
 
 function shareApp() {
-  if (navigator.share) {
-    navigator
-      .share({
-        title: 'mEvIDukacija',
-        text: 'Pogledajte ovu sjajnu aplikaciju!',
-        url: window.location.href,
-      })
-      .then(() => {
-        $q.notify({
-          type: 'positive',
-          message: 'Aplikacija uspješno podijeljena!',
-        })
-      })
-      .catch((error) => {
-        $q.notify({
-          type: 'negative',
-          message: 'Dijeljenje nije uspjelo: ' + error,
-        })
-      })
+  const shareUrl = 'https://www.veleri.hr'
+
+  if (window.cordova && window.cordova.InAppBrowser) {
+    window.cordova.InAppBrowser.open(shareUrl, '_system')
   } else {
-    $q.notify({
-      type: 'negative',
-      message: 'Dijeljenje nije podržano na ovom uređaju.',
-    })
+    window.open(shareUrl, '_blank')
   }
 }
 </script>

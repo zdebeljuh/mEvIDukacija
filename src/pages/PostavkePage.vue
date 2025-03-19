@@ -7,13 +7,13 @@
         </q-item-section>
         <q-item-section avatar>
           <q-toggle
-            v-model="$q.dark.isActive"
+            :model-value="$q.dark.isActive"
             @update:model-value="toggleDarkMode"
             color="primary"
             keep-color
           >
             <template v-slot:thumb>
-              <q-icon name="dark_mode" :color="$q.dark.isActive ? '#346C69' : 'grey'" />
+              <q-icon name="dark_mode" class="dark-mode-icon" />
             </template>
           </q-toggle>
         </q-item-section>
@@ -47,6 +47,11 @@ function changeLanguage() {
 </script>
 
 <style>
+/* Ikona unutar thumb-a mijenja boju kada je dark mode aktivan */
+.dark-mode-icon {
+  color: white !important;
+}
+
 .language-icon {
   color: #346c69;
 }
