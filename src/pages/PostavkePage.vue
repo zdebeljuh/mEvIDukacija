@@ -6,7 +6,16 @@
           <q-item-label>Dark Mode</q-item-label>
         </q-item-section>
         <q-item-section avatar>
-          <q-toggle v-model="darkMode" @update:model-value="toggleDarkMode" />
+          <q-toggle
+            v-model="$q.dark.isActive"
+            @update:model-value="toggleDarkMode"
+            color="primary"
+            keep-color
+          >
+            <template v-slot:thumb>
+              <q-icon name="dark_mode" :color="$q.dark.isActive ? '#346C69' : 'grey'" />
+            </template>
+          </q-toggle>
         </q-item-section>
       </q-item>
 
@@ -15,7 +24,7 @@
           <q-item-label>Promjena jezika</q-item-label>
         </q-item-section>
         <q-item-section avatar>
-          <q-icon name="language" />
+          <q-icon name="language" class="language-icon" />
         </q-item-section>
       </q-item>
     </q-list>
@@ -23,14 +32,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
 import { useQuasar } from 'quasar'
 
 const $q = useQuasar()
-const darkMode = ref($q.dark.isActive)
 
-function toggleDarkMode() {
-  $q.dark.set(darkMode.value)
+function toggleDarkMode(value) {
+  $q.dark.set(value)
 }
 
 function changeLanguage() {
@@ -40,5 +47,9 @@ function changeLanguage() {
 </script>
 
 <style>
-/* Dodajte stilove po potrebi */
+.language-icon {
+  color: #346c69;
+}
+
+/* Dodajte dodatne stilove po potrebi */
 </style>

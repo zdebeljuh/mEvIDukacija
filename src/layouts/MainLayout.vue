@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <q-header elevated class="custom-header">
       <q-toolbar>
         <!-- Verzija aplikacije u gornjem lijevom kutu -->
         <div>v{{ $q.version }}</div>
@@ -9,7 +9,15 @@
         <q-toolbar-title class="q-ml-auto"> mEvIDukacija </q-toolbar-title>
 
         <!-- Hamburger menu u gornjem desnom kutu -->
-        <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleRightDrawer" />
+        <q-btn
+          flat
+          dense
+          round
+          icon="menu"
+          aria-label="Menu"
+          @click="toggleRightDrawer"
+          class="menu-icon"
+        />
       </q-toolbar>
     </q-header>
 
@@ -17,7 +25,13 @@
       <q-list>
         <q-item-label header> mEvIDukacija </q-item-label>
 
-        <EssentialLink v-for="link in linksList" :key="link.title" v-bind="link" />
+        <EssentialLink
+          v-for="link in linksList"
+          :key="link.title"
+          v-bind="link"
+          @shareApp="shareApp"
+          active-class="text-turquoise"
+        />
       </q-list>
     </q-drawer>
 
@@ -30,6 +44,9 @@
 <script setup>
 import { ref } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
+import { useQuasar } from 'quasar'
+
+const $q = useQuasar()
 
 const linksList = [
   {
@@ -62,6 +79,12 @@ const linksList = [
     icon: 'rss_feed',
     link: '/kontakt', // Ažurirajte link na odgovarajuću stranicu unutar aplikacije
   },
+  {
+    title: 'Podijeli',
+    caption: 'Podijelite ovu aplikaciju',
+    icon: 'share',
+    action: 'shareApp', // Dodajte akciju za dijeljenje
+  },
 ]
 
 const rightDrawerOpen = ref(false)
@@ -69,4 +92,66 @@ const rightDrawerOpen = ref(false)
 function toggleRightDrawer() {
   rightDrawerOpen.value = !rightDrawerOpen.value
 }
+
+function shareApp() {
+  if (navigator.share) {
+    navigator
+      .share({
+        title: 'mEvIDukacija',
+        text: 'Pogledajte ovu sjajnu aplikaciju!',
+        url: window.location.href,
+      })
+      .then(() => {
+        $q.notify({
+          type: 'positive',
+          message: 'Aplikacija uspješno podijeljena!',
+        })
+      })
+      .catch((error) => {
+        $q.notify({
+          type: 'negative',
+          message: 'Dijeljenje nije uspjelo: ' + error,
+        })
+      })
+  } else {
+    $q.notify({
+      type: 'negative',
+      message: 'Dijeljenje nije podržano na ovom uređaju.',
+    })
+  }
+}
 </script>
+
+<style>
+.custom-header {
+  background-color: #346c69;
+  color: white;
+}
+
+.q-btn--flat {
+  color: #346c69;
+}
+
+.q-item--clickable:hover {
+  background-color: rgba(52, 108, 105, 0.1);
+}
+
+.q-item--clickable:active {
+  background-color: rgba(52, 108, 105, 0.2);
+}
+
+.menu-icon {
+  color: white;
+}
+
+/* Stilovi za odabrane stavke u meniju */
+.q-item--active .q-item-label,
+.q-item--active .q-icon {
+  color: #346c69 !important;
+}
+
+/* Dodajte dodatne stilove po potrebi */
+.text-turquoise {
+  color: #346c69 !important;
+}
+</style>

@@ -8,6 +8,15 @@
       <q-icon :name="icon" />
     </q-item-section>
   </q-item>
+  <q-item clickable @click="executeAction" v-else-if="action">
+    <q-item-section>
+      <q-item-label>{{ title }}</q-item-label>
+      <q-item-label caption>{{ caption }}</q-item-label>
+    </q-item-section>
+    <q-item-section avatar>
+      <q-icon :name="icon" />
+    </q-item-section>
+  </q-item>
   <q-item v-else>
     <q-item-section>
       <q-item-label>{{ title }}</q-item-label>
@@ -20,10 +29,21 @@
 </template>
 
 <script setup>
-defineProps({
+import { defineProps, defineEmits } from 'vue'
+
+const props = defineProps({
   title: String,
   caption: String,
   icon: String,
   link: String,
+  action: String,
 })
+
+const emit = defineEmits(['shareApp'])
+
+function executeAction() {
+  if (props.action === 'shareApp') {
+    emit('shareApp')
+  }
+}
 </script>
